@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_STUDENTS 100
+
+// Structure definition
+struct student {
+    int roll_no;
+    char stud_name[50];
+    float mark1;
+    float mark2;
+    float mark3;
+    float total_marks;
+    float avg_marks;
+};
+
+// Function to swap two students
+void swap(struct student *s1, struct student *s2) {
+    struct student temp = *s1;
+    *s1 = *s2;
+    *s2 = temp;
+}
+
+// Function to sort students in descending order of marks
+void sort_students(struct student *students, int num_students) {
+    int i, j;
+    for (i = 0; i < num_students - 1; i++) {
+        for (j = i + 1; j < num_students; j++) {
+            if (students[i].total_marks < students[j].total_marks) {
+                swap(&students[i], &students[j]);
+            }
+        }
+    }
+}
+
+int main() {
+    int i, num_students;
+    struct student students[MAX_STUDENTS];
+
+    // Get number of students
+    printf("Enter number of students: ");
+    scanf("%d", &num_students);
+
+    // Get student details
+    for (i = 0; i < num_students; i++) {
+        printf("Enter details of student %d:\n", i+1);
