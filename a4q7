@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <string.h>
+
+struct book {
+    char title[50];
+    char author[50];
+    int book_id;
+};
+
+struct book library[100];
+int count = 0;
+
+void add_book() {
+    struct book new_book;
+    printf("\nEnter book title: ");
+    scanf("%s", new_book.title);
+    printf("Enter book author: ");
+    scanf("%s", new_book.author);
+    printf("Enter book ID: ");
+    scanf("%d", &new_book.book_id);
+    library[count] = new_book;
+    count++;
+    printf("\nBook added successfully.\n");
+}
+
+void display_book() {
+    int book_id;
+    printf("\nEnter book ID: ");
+    scanf("%d", &book_id);
+    for (int i = 0; i < count; i++) {
+        if (library[i].book_id == book_id) {
+            printf("\nBook title: %s\n", library[i].title);
+            printf("Book author: %s\n", library[i].author);
+            printf("Book ID: %d\n", library[i].book_id);
+            return;
+        }
+    }
+    printf("\nBook not found.\n");
+}
+
+void list_books_by_author() {
+    char author[50];
+    printf("\nEnter author name: ");
+    scanf("%s", author);
+    int found = 0;
+    printf("\nBooks by %s:\n", author);
+    for (int i = 0; i < count; i++) {
+        if (strcmp(library[i].author, author) == 0) {
+            printf("%s\n", library[i].title);
+            found = 1;
+        }
+    }
+    if (!found) {
+        printf("No books found by %s.\n", author);
+    }
+}
+
+void list_book_count() {
+    printf("\nNumber of books in the library: %d\n", count);
+}
+
+int main() {
+    int choice;
+    do {
+        printf("\nLibrary Management System\n");
+        printf("1. Add book details\n");
+        printf("2. Display book details\n");
+        printf("3. List all books of given author\n");
+        printf("4. List the count of books in the library\n");
+        printf("5. Exit\n");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                add_book();
+                break;
+            case 2:
+                display_book();
+                break;
+            case 3:
+                list_books_by_author();
+                break;
+            case 4:
+                list_book_count();
+                break;
+            case 5:
+                printf("\nThank you for using the library management system.\n");
+                return 0;
+            default:
+                printf("\nInvalid choice. Please try again.\n");
+        }
+    } while (1);
+}
